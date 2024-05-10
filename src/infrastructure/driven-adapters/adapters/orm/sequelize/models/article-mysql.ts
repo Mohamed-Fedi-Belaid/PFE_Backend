@@ -1,19 +1,18 @@
-import { Table, Column, Model, Sequelize, PrimaryKey, Default, DataType, ForeignKey } from 'sequelize-typescript'
+import { Table, Column, Model, Sequelize, PrimaryKey, Default, DataType, ForeignKey, BelongsTo, AutoIncrement, HasMany } from 'sequelize-typescript'
 import { ArticleEntity } from "@/domain/entities/article";
 import { DateDataType, IntegerDataType } from 'sequelize';
+import { CategorieModelMysql } from './categorie-mysql';
 
 @Table({ tableName: 'article' })
 export class ArticleModelMysql extends Model<ArticleEntity> {
     @PrimaryKey
-    @Default(DataType)
+    @AutoIncrement
     @Column({ type: DataType.INTEGER })
     public id: IntegerDataType;
     @ForeignKey(()=>ArticleModelMysql)
     @Column({ type: DataType.INTEGER })
     public id_frs  : IntegerDataType;
-    @ForeignKey(()=>ArticleModelMysql)
-    @Column({ type: DataType.INTEGER })
-    public idcat  : {IntegerDataType,refrences:'categorie',refrenceKey:'id'};
+   
      @ForeignKey(()=>ArticleModelMysql)
     @Column({ type: DataType.INTEGER })
     public idscat  : IntegerDataType;   
@@ -112,5 +111,13 @@ export class ArticleModelMysql extends Model<ArticleEntity> {
     public achat_imp: string;
     @Column({ type: DataType.INTEGER })
     public num: IntegerDataType;
-    
+
+    @ForeignKey(() => CategorieModelMysql)
+    @Column({ type: DataType.INTEGER })
+    public idcat: number;
+
+    @BelongsTo(() => CategorieModelMysql)
+    public categorie: CategorieModelMysql
+    @HasMany(() => ArticleModelMysql)
+    public articles: ArticleModelMysql[];
 }

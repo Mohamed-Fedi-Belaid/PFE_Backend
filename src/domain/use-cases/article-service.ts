@@ -6,4 +6,5 @@ export interface IArticleService {
     getArticleCount:()=> Promise<number>
     getArticleCountDisp:() => Promise<number>
     getArticleCountByCategorie:() => Promise<Model[]>
+    getProfit:() => Promise<Model[]>
 }

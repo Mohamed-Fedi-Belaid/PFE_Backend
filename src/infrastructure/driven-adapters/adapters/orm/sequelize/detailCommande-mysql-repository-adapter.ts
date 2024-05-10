@@ -1,8 +1,10 @@
 import { IDetailCommandeRepository } from "@/domain/entities/contracts/detailCommande-repository";
 import {DetailCommandeEntity} from "@/domain/entities/detailCommande";
 import {DetailCommandeModelMysql}from "@/infrastructure/driven-adapters/adapters/orm/sequelize/models/detailCommande-mysql";
-import sequelize from "sequelize";
+import sequelize, { Sequelize } from "sequelize";
 import { Op } from "sequelize";
+import { ArticleModelMysql } from "./models/article-mysql";
+import { CategorieModelMysql } from "./models/categorie-mysql";
 
 export class DetailCommandeMysqlRepositoryAdapter implements IDetailCommandeRepository {
     async getVenteParSaison(): Promise<DetailCommandeModelMysql[] > {
@@ -27,4 +29,16 @@ export class DetailCommandeMysqlRepositoryAdapter implements IDetailCommandeRepo
             console.error(err);
         });
     }
+
+    async  getEvolutionVentesParCategorie():Promise<DetailCommandeModelMysql[] > {
+    
+        const query = `
+
+        SELECT SUM(detail_cmd.prix),categorie.nom from detail_cmd 
+        inner join article ON article.id = detail_cmd.id_prd
+        join categorie on article.idcat= categorie.id where detail_cmd.etat group by categorie.nom ;
+        `;
+    
+        return await DetailCommandeModelMysql.sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
+   }
 }

@@ -23,6 +23,10 @@ export class ArticleController {
     async getArticleCountByCategorie(): Promise<Model[]> {
         return await this.ArticleService.getArticleCountByCategorie();
     }
+    @Get('/getProfit')
+    async getProfit(): Promise<Model[]> {
+        return await this.ArticleService.getProfit();
+    }    
 
     
 }

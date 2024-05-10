@@ -7,6 +7,7 @@ import { CommandeModelMysql } from "@/infrastructure/driven-adapters/adapters/or
 import { ArticleModelMysql } from "@/infrastructure/driven-adapters/adapters/orm/sequelize/models/article-mysql";
 import { CategorieModelMysql } from "@/infrastructure/driven-adapters/adapters/orm/sequelize/models/categorie-mysql";
 import { FournisseurModelMysql } from "@/infrastructure/driven-adapters/adapters/orm/sequelize/models/fournisseur-mysql";
+import { PdvModelMysql } from "@/infrastructure/driven-adapters/adapters/orm/sequelize/models/pdv-mysql";
 
 /**
  * Class that generates a connection instance for Mysql using the Singleton pattern
@@ -32,7 +33,9 @@ export class MysqlConfiguration {
           CommandeModelMysql,
           ArticleModelMysql,
           CategorieModelMysql,
-          FournisseurModelMysql
+          FournisseurModelMysql,
+          PdvModelMysql,
+          
 
         ]
       }

@@ -21,5 +21,8 @@ export class ArticleServiceImpl implements IArticleService {
     async getArticleCountByCategorie(): Promise<Model[]> {
         return await this.ArticleRepository.getArticleCountByCategorie();
     }
+    async getProfit(): Promise<Model[]> {
+        return await this.ArticleRepository.getProfit();
+    }
 
 }

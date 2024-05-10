@@ -10,4 +10,7 @@ export class DetailCommandeServiceImpl implements IDetailCommandeService {
     async getVenteParSaison(): Promise<DetailCommandeModelMysql[] > {
         return await this.DetailCommandeRepository.getVenteParSaison();
     }
+    async getEvolutionVentesParCategorie(): Promise<DetailCommandeModelMysql[]> {
+        return await this.DetailCommandeRepository.getEvolutionVentesParCategorie();
+    }
 }

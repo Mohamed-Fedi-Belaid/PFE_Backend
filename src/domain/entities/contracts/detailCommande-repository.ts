@@ -4,4 +4,5 @@ export const DETAILCOMMANDE_REPOSITORY = 'DETAILCOMMANDE_REPOSITORY';
 
 export interface IDetailCommandeRepository {
     getVenteParSaison():Promise<DetailCommandeModelMysql[] >
+    getEvolutionVentesParCategorie(): Promise<DetailCommandeModelMysql[]>
 }
