@@ -34,11 +34,65 @@ export class DetailCommandeMysqlRepositoryAdapter implements IDetailCommandeRepo
     
         const query = `
 
-        SELECT SUM(detail_cmd.prix),categorie.nom from detail_cmd 
+        SELECT SUM(detail_cmd.prix) AS SommeVente ,categorie.nom from detail_cmd 
         inner join article ON article.id = detail_cmd.id_prd
         join categorie on article.idcat= categorie.id where detail_cmd.etat group by categorie.nom ;
         `;
     
         return await DetailCommandeModelMysql.sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
-   }
+    }
+    async  getNbArticleVenduParSaison():Promise<DetailCommandeModelMysql[] > {
+    
+        const query = `
+
+        SELECT 
+        s.season,
+        COUNT(dp.article) AS number_of_products,
+        GROUP_CONCAT(DISTINCT dp.article SEPARATOR ', ') AS articles
+        FROM ( -- Create a distinct list of seasons
+            SELECT 'Spring' AS season
+            UNION ALL
+            SELECT 'Summer'
+            UNION ALL
+            SELECT 'Autumn'
+            UNION ALL
+            SELECT 'Winter'
+        ) AS s
+        LEFT JOIN (
+            -- Assign a season to each product
+            SELECT 
+                article,
+                CASE
+                    WHEN MONTH(dt) BETWEEN 3 AND 5 THEN 'Spring'
+                    WHEN MONTH(dt) BETWEEN 6 AND 8 THEN 'Summer'
+                    WHEN MONTH(dt) BETWEEN 9 AND 11 THEN 'Autumn'
+                    ELSE 'Winter'
+                END AS season
+            FROM detail_cmd
+        ) AS dp ON s.season = dp.season
+        GROUP BY s.season
+        ORDER BY number_of_products DESC;
+        `;
+    
+        return await DetailCommandeModelMysql.sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
+    }
+
+    async  getSommeVenteParMois():Promise<DetailCommandeModelMysql[] > {
+    
+        const query = `
+                SELECT 
+                DAY(c.dt) AS jour,
+                MONTHNAME(c.dt) AS mois,
+                YEAR(c.dt) AS annee,
+                SUM(c.prix) AS somme
+                FROM 
+                detail_cmd c
+                INNER JOIN 
+                article a ON a.id = c.id_prd
+                GROUP BY 
+                jour, mois, annee;
+        `;
+    
+        return await DetailCommandeModelMysql.sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
+    }
 }

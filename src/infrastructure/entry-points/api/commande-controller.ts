@@ -1,6 +1,7 @@
 
 import {Mapping, Get, Adapter} from "@tsclean/core";
 import { COMMANDE_SERVICES, ICommandeService } from "@/domain/use-cases/commande-service";
+import { CommandeModelMysql } from "@/infrastructure/driven-adapters/adapters/orm/sequelize/models/commande-mysql";
 
 @Mapping('api/v1/commande')
 export class CommandeControlle   {
@@ -25,11 +26,19 @@ export class CommandeControlle   {
     async getCommandeSumDividedByCountAll(): Promise<number> {
         return await this.CommandeService.getCommandeSumDividedByCountAll();
     }
-    @Get('/getCommandeByMonth/')
+    @Get('/getCommandeByMonth')
     async getCommandeByMonth(): Promise<number> {
         return await this.CommandeService.getCommandeByMonth();
     }
+    @Get('/getCommandeCountByDayForLastMonth')
+    async getCommandeCountByDayForLastMonth(): Promise<CommandeModelMysql[]> {
+        return await this.CommandeService.getCommandeCountByDayForLastMonth();
+    }
 
+    @Get('/getSumVenteParVille')
+    async getSumVenteParVille(): Promise<CommandeModelMysql[]> {
+        return await this.CommandeService.getSumVenteParVille();
+    }
    
    
 

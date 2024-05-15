@@ -18,6 +18,9 @@ export class FournisseurServiceImpl implements IFournisseurService {
     async getFournisseurCount(): Promise<number> {
         return await this.FournisseurRepository.getFournisseurCount();
     }
+    async getMeilleurFournisseur(): Promise<FournisseurModelMysql[]> {
+        return await this.FournisseurRepository.getMeilleurFournisseur();
+    }
 
   
 }

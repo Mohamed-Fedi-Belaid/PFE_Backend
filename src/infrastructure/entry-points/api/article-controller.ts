@@ -28,5 +28,22 @@ export class ArticleController {
         return await this.ArticleService.getProfit();
     }    
 
+    @Get('/getTopProduitVendue')
+    async getTopProduitVendue(): Promise<Model[]> {
+        return await this.ArticleService.getTopProduitVendue();
+    }
+
+    @Get('/getRepartitionArticleParSousCategorie')
+    async getRepartitionArticleParSousCategorie(): Promise<Model[]> {
+        return await this.ArticleService.getRepartitionArticleParSousCategorie();
+    }
+    
+
+
+
+
+
+
+    
     
 }

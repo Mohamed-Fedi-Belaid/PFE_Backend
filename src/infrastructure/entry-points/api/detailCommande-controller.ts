@@ -17,4 +17,16 @@ export class DetailCommandeController {
     async getEvolutionVentesParCategorie(): Promise<DetailCommandeModelMysql[] > {
         return await this.DetailCommandeService.getEvolutionVentesParCategorie();
     }
+    @Get('/getNbArticleVenduParSaison')
+    async getNbArticleVenduParSaison(): Promise<DetailCommandeModelMysql[] > {
+        return await this.DetailCommandeService.getNbArticleVenduParSaison();
+    }
+
+    @Get('/getSommeVenteParMois')
+    async getSommeVenteParMois(): Promise<DetailCommandeModelMysql[] > {
+        return await this.DetailCommandeService.getSommeVenteParMois();
+    }
+
+
+
 }
