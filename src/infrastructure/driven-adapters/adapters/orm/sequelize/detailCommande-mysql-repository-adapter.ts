@@ -95,4 +95,14 @@ export class DetailCommandeMysqlRepositoryAdapter implements IDetailCommandeRepo
     
         return await DetailCommandeModelMysql.sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
     }
+
+    async  getSommeVenteParVille():Promise<DetailCommandeModelMysql[] > {
+    
+        const query = `
+                
+         select  ville, SUM( prix)  from detail_cmd  where etat = 6 GROUP BY ville;
+        `;
+    
+        return await DetailCommandeModelMysql.sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
+    }
 }

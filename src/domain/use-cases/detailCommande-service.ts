@@ -7,4 +7,5 @@ export interface IDetailCommandeService {
     getEvolutionVentesParCategorie:()=> Promise<DetailCommandeModelMysql[] >
     getNbArticleVenduParSaison:()=> Promise<DetailCommandeModelMysql[] >
     getSommeVenteParMois:()=> Promise<DetailCommandeModelMysql[] >
+    getSommeVenteParVille:()=> Promise<DetailCommandeModelMysql[] >
 }

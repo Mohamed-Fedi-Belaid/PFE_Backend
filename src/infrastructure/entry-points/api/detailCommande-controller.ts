@@ -26,6 +26,11 @@ export class DetailCommandeController {
     async getSommeVenteParMois(): Promise<DetailCommandeModelMysql[] > {
         return await this.DetailCommandeService.getSommeVenteParMois();
     }
+    
+    @Get('/getSommeVenteParVille')
+    async getSommeVenteParVille(): Promise<DetailCommandeModelMysql[] > {
+        return await this.DetailCommandeService.getSommeVenteParVille();
+    }
 
 
 
